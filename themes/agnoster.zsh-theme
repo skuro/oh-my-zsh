@@ -201,6 +201,11 @@ prompt_dir() {
   prompt_segment blue $CURRENT_FG '%~'
 }
 
+# Time: the timestamp
+prompt_time() {
+  prompt_segment magenta black '%*'
+}
+
 # Virtualenv: current working virtualenv
 prompt_virtualenv() {
   local virtualenv_path="$VIRTUAL_ENV"
@@ -243,6 +248,7 @@ build_prompt() {
   prompt_virtualenv
   prompt_aws
   prompt_context
+  prompt_time
   prompt_dir
   prompt_git
   prompt_bzr
