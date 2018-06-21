@@ -201,9 +201,13 @@ prompt_dir() {
   prompt_segment blue $CURRENT_FG '%~'
 }
 
-# Time: the timestamp
+# Time: the timestamp plus the execution time of the last command
 prompt_time() {
-  prompt_segment magenta black '%*'
+    if [[ ${timer_show} && ${timer_show} -gt 0 ]]
+    then
+        timer_prompt=" [elapsed: ${timer_show}s]"
+    fi
+    prompt_segment magenta black "%*$timer_prompt"
 }
 
 # Virtualenv: current working virtualenv
