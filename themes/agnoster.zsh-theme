@@ -245,11 +245,24 @@ prompt_aws() {
   esac
 }
 
+# Kubernetes context
+# - displays yellow on red if profile name contains 'production' or
+#   ends in '-prod'
+# - displays black on blue otherwise
+prompt_k8s() {
+    [[ -z "$(command -v kubectl)" || -z "$(kubectl config current-context)" ]] && return
+    case "$(kubectl config current-context)" in
+      *-prod|*production*) prompt_segment red yellow "K8S: $(kubectl config current-context)" ;;
+      *) prompt_segment blue white "K8S: $(kubectl config current-context)" ;;
+    esac
+}
+
 ## Main prompt
 build_prompt() {
   RETVAL=$?
   prompt_status
   prompt_virtualenv
+  prompt_k8s
   prompt_aws
   prompt_context
   prompt_time
