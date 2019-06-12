@@ -203,9 +203,9 @@ prompt_dir() {
 
 # Time: the timestamp plus the execution time of the last command
 prompt_time() {
-    if [[ ${timer_show} && ${timer_show} -gt 0 ]]
+    if [[ ! -z ${timer_show} ]]
     then
-        timer_prompt=" [elapsed: ${timer_show}s]"
+        timer_prompt=" [elapsed: ${timer_show}]"
     fi
     prompt_segment magenta black "%*$timer_prompt"
 }
